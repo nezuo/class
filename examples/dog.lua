@@ -6,7 +6,6 @@ local Pet = require(ServerScriptService.Pet)
 
 --< Class >--
 local Dog = Pet:Extend()
-Dog.Type = "Dog"
 
 function Dog:Construct(name, age)
     self.Super(name, age)

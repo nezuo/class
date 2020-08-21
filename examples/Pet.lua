@@ -6,7 +6,6 @@ local Class = require(ReplicatedStorage.Class)
 
 --< Class >--
 local Pet = Class()
-Pet.Type = "Pet"
 
 function Pet:Construct(name, age)
     self.Name = name

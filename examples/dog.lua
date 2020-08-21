@@ -1,5 +1,21 @@
 --< Services >--
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ServerScriptService = game:GetService("ServerScriptService")
 
 --< Modules >--
-local Class = require()
+local Pet = require(ServerScriptService.Pet)
+
+--< Class >--
+local Dog = Pet:Extend()
+Dog.Type = "Dog"
+
+function Dog:Construct(name, age)
+    self.Super(name, age)
+end
+
+function Dog:Bark()
+    self.Super.SayHi(self)
+
+    print("Bark!")
+end
+
+return Dog

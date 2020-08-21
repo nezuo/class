@@ -1,0 +1,17 @@
+{
+    "name": "Class Testing",
+    "tree": {
+        "$className": "DataModel",
+
+        "ServerScriptService": {
+            "$className": "ServerScriptService",
+            "$path": "examples"
+        },
+
+        "ReplicatedStorage": {
+            "Class": {
+                "$path": "src"
+            }
+        }
+    }
+}

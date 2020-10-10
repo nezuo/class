@@ -26,5 +26,6 @@ end
 
 function Dog:Method2()
     self.Super.Method(self) -- Call the parent class's method
+    self:Method() -- Alternatively, you can do this as long as this class doesn't define it
 end
 ```

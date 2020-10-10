@@ -29,3 +29,8 @@ function Dog:Method2()
     self:Method() -- Alternatively, you can do this as long as this class doesn't define it
 end
 ```
+
+Instancing an Object:
+```lua
+local MyPet = Dog.new("Charlie", "German Shepard")
+```

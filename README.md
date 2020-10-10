@@ -30,7 +30,7 @@ function Dog:Method2()
 end
 ```
 
-Instancing an Object:
+Instancing an object:
 ```lua
 local MyPet = Dog.new("Charlie", "German Shepard")
 ```

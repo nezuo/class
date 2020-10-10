@@ -11,6 +11,10 @@
         "ReplicatedStorage": {
             "Class": {
                 "$path": "src"
+            },
+
+            "TestEZ": {
+                "$path": "dependencies/testez/src"
             }
         }
     }

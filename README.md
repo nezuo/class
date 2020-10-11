@@ -19,13 +19,13 @@ Creating a subclass:
 local Dog = Pet:Extend()
 
 function Dog:Construct(name, breed) -- Overwrite constructor 
-    self.Super(name) -- Call the parent class's constructor
+    Pet.Construct(self, name) -- Call the parent class's constructor
     
     self.Breed = breed
 end
 
 function Dog:Method2()
-    self.Super.Method(self) -- Call the parent class's method
+    Pet.Method(self) -- Call the parent class's method
     self:Method() -- Alternatively, you can do this as long as this class doesn't define it
 end
 ```

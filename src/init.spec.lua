@@ -1,4 +1,5 @@
 --< Services >--
+local HttpService = game:GetService("HttpService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 --< Test >--
@@ -96,6 +97,36 @@ return function()
 
                 expect(Result).to.equal(true)
             end).never.to.throw()
+        end)
+
+        it("shouldn't affect class", function()
+            local Example = Class()
+
+            function Example:Construct()
+                self.Constructed = true
+            end
+
+            Example.new()
+
+            expect(Example.Constructed).never.to.equal(true)
+        end)
+
+        it("shouldn't affect parent class", function()
+            local Parent = Class()
+
+            function Parent:Construct()
+                self.Constructed = true
+            end
+
+            local Child = Parent:Extend()
+
+            function Child:Construct()
+                self.Super()
+            end
+
+            Child.new()
+
+            expect(Parent.Constructed).never.to.equal(true)
         end)
     end)
 end

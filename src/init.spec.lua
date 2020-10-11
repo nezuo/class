@@ -1,5 +1,4 @@
 --< Services >--
-local HttpService = game:GetService("HttpService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 --< Test >--
@@ -45,7 +44,7 @@ return function()
             local Child = Parent:Extend()
 
             function Child:Construct()
-                self.Super()
+                Parent.Construct(self)
             end
 
             expect(Child.new().Constructed).to.equal(true)
@@ -61,7 +60,7 @@ return function()
             local Parent = Ancestor:Extend()
 
             function Parent:Construct()
-                self.Super()
+                Ancestor.Construct(self)
 
                 self.ParentCalled = true
             end
@@ -69,7 +68,7 @@ return function()
             local Child = Parent:Extend()
 
             function Child:Construct()
-                self.Super()
+                Parent.Construct(self)
 
                 self.ChildCalled = true
             end
@@ -78,7 +77,7 @@ return function()
 
             expect(Object.AncestorCalled and Object.ParentCalled and Object.ChildCalled).to.equal(true)
         end)
-
+        
         it("should call parent method", function()
             local Parent = Class()
 
@@ -89,7 +88,33 @@ return function()
             local Child = Parent:Extend()
 
             function Child:Method()
-                return self.Super.Method(self)
+                return Parent.Method(self)
+            end
+
+            expect(function()
+                local Result = Child.new():Method()
+
+                expect(Result).to.equal(true)
+            end).never.to.throw()
+        end)
+
+        it("should call ancestor method", function()
+            local Ancestor = Class()
+
+            function Ancestor:Method()
+                return true
+            end
+
+            local Parent = Ancestor:Extend()
+
+            function Parent:Method()
+                return true
+            end
+
+            local Child = Parent:Extend()
+
+            function Child:Method()
+                return Ancestor.Method(self)
             end
 
             expect(function()
@@ -111,7 +136,7 @@ return function()
             expect(Example.Constructed).never.to.equal(true)
         end)
 
-        it("shouldn't affect parent class", function()
+        it("shouldn't affect parent class (constructor)", function()
             local Parent = Class()
 
             function Parent:Construct()
@@ -121,12 +146,30 @@ return function()
             local Child = Parent:Extend()
 
             function Child:Construct()
-                self.Super()
+                Parent.Construct(self)
             end
 
             Child.new()
 
             expect(Parent.Constructed).never.to.equal(true)
+        end)
+
+        it("shouldn't affect parent class (method)", function()
+            local Parent = Class()
+
+            function Parent:Method()
+                self.Called = true
+            end
+
+            local Child = Parent:Extend()
+
+            function Child:Method()
+                Parent.Method(self)
+            end
+
+            Child.new():Method()
+
+            expect(Parent.Called).never.to.equal(true)
         end)
     end)
 end

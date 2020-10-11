@@ -8,11 +8,11 @@ local Pet = require(ServerScriptService.Pet)
 local Dog = Pet:Extend()
 
 function Dog:Construct(name, age)
-    self.Super(name, age)
+    Pet.Construct(self, name, age)
 end
 
 function Dog:Bark()
-    self.Super.SayHi(self)
+    Pet.SayHi(self)
 
     print("Bark!")
 end

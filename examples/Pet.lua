@@ -1,19 +1,16 @@
---< Services >--
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
---< Modules >--
-local Class = require(ReplicatedStorage.Class)
+local class = require(ReplicatedStorage.class)
 
---< Class >--
-local Pet = Class()
+local Pet = class()
 
-function Pet:Construct(name, age)
-    self.Name = name
-    self.Age = age
+function Pet:construct(name, age)
+    self.name = name
+    self.age = age
 end
 
-function Pet:SayHi()
-    print("Hello my name is " .. self.Name .. " and I am " .. self.Age .. " years old.")
+function Pet:sayHi()
+    print("Hello my name is " .. self.name .. " and I am " .. self.age .. " years old.")
 end
 
 return Pet

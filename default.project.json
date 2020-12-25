@@ -1,21 +1,24 @@
 {
-    "name": "Class Testing",
+    "name": "class",
     "tree": {
         "$className": "DataModel",
+
+        "ReplicatedStorage": {
+            "class": {"$path": "src"}
+        },
 
         "ServerScriptService": {
             "$className": "ServerScriptService",
             "$path": "examples"
         },
 
-        "ReplicatedStorage": {
-            "Class": {
-                "$path": "src"
+        "TestService": {
+            "$properties": {
+                "ExecuteWithStudioRun": true
             },
 
-            "TestEZ": {
-                "$path": "dependencies/testez/src"
-            }
+            "TestEZ": {"$path": "dependencies/testez/src"},
+            "runTests": {"$path": "test/runTests.server.lua"}
         }
     }
 }

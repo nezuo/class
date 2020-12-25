@@ -1,18 +1,15 @@
---< Services >--
 local ServerScriptService = game:GetService("ServerScriptService")
 
---< Modules >--
 local Pet = require(ServerScriptService.Pet)
 
---< Class >--
-local Dog = Pet:Extend()
+local Dog = Pet:extend()
 
-function Dog:Construct(name, age)
-    Pet.Construct(self, name, age)
+function Dog:construct(name, age)
+    Pet.construct(self, name, age)
 end
 
-function Dog:Bark()
-    Pet.SayHi(self)
+function Dog:bark()
+    Pet.sayHi(self)
 
     print("Bark!")
 end

@@ -3,34 +3,34 @@ A simple OOP library for Roblox.
 
 Creating a class:
 ```lua
-local Class = require(...)
+local class = require(...)
 
-local Pet = Class()
+local Pet = class()
 
-function Pet:Construct(name) -- Construct defines the constructor
-    self.Name = name
+function Pet:construct(name) -- Construct defines the constructor.
+    self.name = name
 end
 
-function Pet:Method() end -- Define a method
+function Pet:method() end -- Define a method.
 ```
 
-Creating a subclass: 
+Creating a subclass:
 ```lua
-local Dog = Pet:Extend()
+local Dog = Pet:extend()
 
-function Dog:Construct(name, breed) -- Overwrite constructor 
-    Pet.Construct(self, name) -- Call the parent class's constructor
-    
-    self.Breed = breed
+function Dog:construct(name, breed) -- Overwrite constructor.
+    Pet.construct(self, name) -- Call the parent class's constructor.
+
+    self.breed = breed
 end
 
-function Dog:Method2()
-    Pet.Method(self) -- Call the parent class's method
-    self:Method() -- Alternatively, you can do this as long as this class doesn't define it
+function Dog:method2()
+    Pet.method(self) -- Call the parent class's method.
+    self:method() -- Alternatively, you can do this as long as this class doesn't define it.
 end
 ```
 
 Instancing an object:
 ```lua
-local MyPet = Dog.new("Charlie", "German Shepard")
+local myPet = Dog.new("Charlie", "German Shepard")
 ```

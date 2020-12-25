@@ -1,3 +1,9 @@
-/Class.rbxlx
+# Project place file
+/class.rbxlx
 
+# Roblox std
 /roblox.toml
+
+# Roblox Studio lock files
+/*.rbxlx.lock
+/*.rbxl.lock

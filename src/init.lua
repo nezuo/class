@@ -1,27 +1,25 @@
---< Classes >--
 local BaseClass = {}
 BaseClass.__index = BaseClass
 
-function BaseClass:Construct() end
+function BaseClass:construct() end
 
-function BaseClass:Extend()
+function BaseClass:extend()
     local Class = setmetatable({}, self)
     Class.__index = Class
 
     Class.new = function(...)
-        local Object = setmetatable({}, Class)
+        local object = setmetatable({}, Class)
 
-        Object:Construct(...)
+        object:construct(...)
 
-        return Object
+        return object
     end
 
     return Class
 end
 
---< Module >--
-local function Class()
-    return BaseClass:Extend()
+local function class()
+    return BaseClass:extend()
 end
 
-return Class
+return class

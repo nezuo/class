@@ -1,16 +1,11 @@
---< Services >--
 local ServerScriptService = game:GetService("ServerScriptService")
 
---< Modules >--
 local Pet = require(ServerScriptService.Pet)
 local Dog = require(ServerScriptService.Dog)
 
---< Start >--
-local MyPet = Pet.new("Chuck", 6)
-MyPet:SayHi()
+local pet = Pet.new("Chuck", 6)
+pet:sayHi()
 
-local MyDog = Dog.new("Annie", 7)
-MyDog:SayHi()
-MyDog:Bark()
-
-MyPet:Bark()
+local dog = Dog.new("Annie", 7)
+dog:sayHi()
+dog:bark()

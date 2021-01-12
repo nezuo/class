@@ -1,173 +1,193 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 return function()
-    local class = require(ReplicatedStorage.class)
+	local class = require(ReplicatedStorage.class)
 
-    describe("Class", function()
-        it("should have a constructor", function()
-            local Example = class()
+	describe("Class", function()
+		it("should have a constructor", function()
+			local Example = class()
 
-            expect(Example.new()).to.be.ok()
-        end)
+			expect(Example.new()).to.be.ok()
+		end)
 
-        it("should call constructor", function()
-            local Example = class()
+		it("should call constructor", function()
+			local Example = class()
 
-            function Example:construct()
-                self.called = true
-            end
+			function Example:construct()
+				self.called = true
+			end
 
-            expect(Example.new().called).to.equal(true)
-        end)
+			expect(Example.new().called).to.equal(true)
+		end)
 
-        it("should extend parent", function()
-            local Parent = class()
+		it("should extend parent", function()
+			local Parent = class()
 
-            function Parent:method() end
+			function Parent:method()
 
-            local Child = Parent:extend()
+			end
 
-            expect(function()
-                Child:method()
-            end).never.to.throw()
-        end)
+			local Child = Parent:extend()
 
-        it("should call parent constructor", function()
-            local Parent = class()
+			expect(function()
+				Child:method()
+			end).never.to.throw()
+		end)
 
-            function Parent:construct()
-                self.constructed = true
-            end
+		it("should call parent constructor", function()
+			local Parent = class()
 
-            local Child = Parent:extend()
+			function Parent:construct()
+				self.constructed = true
+			end
 
-            function Child:construct()
-                Parent.construct(self)
-            end
+			local Child = Parent:extend()
 
-            expect(Child.new().constructed).to.equal(true)
-        end)
+			function Child:construct()
+				Parent.construct(self)
+			end
 
-        it("should call parent constructors", function()
-            local Ancestor = class()
+			expect(Child.new().constructed).to.equal(true)
+		end)
 
-            function Ancestor:construct()
-                self.ancestorCalled = true
-            end
+		it("should call parent constructors", function()
+			local Ancestor = class()
 
-            local Parent = Ancestor:extend()
+			function Ancestor:construct()
+				self.ancestorCalled = true
+			end
 
-            function Parent:construct()
-                Ancestor.construct(self)
+			local Parent = Ancestor:extend()
 
-                self.parentCalled = true
-            end
+			function Parent:construct()
+				Ancestor.construct(self)
 
-            local Child = Parent:extend()
+				self.parentCalled = true
+			end
 
-            function Child:construct()
-                Parent.construct(self)
+			local Child = Parent:extend()
 
-                self.childCalled = true
-            end
+			function Child:construct()
+				Parent.construct(self)
 
-            local object = Child.new()
+				self.childCalled = true
+			end
 
-            expect(object.ancestorCalled and object.parentCalled and object.childCalled).to.equal(true)
-        end)
+			local object = Child.new()
 
-        it("should call parent method", function()
-            local Parent = class()
+			expect(object.ancestorCalled and object.parentCalled and object.childCalled).to.equal(true)
+		end)
 
-            function Parent:method()
-                return true
-            end
+		it("should call parent method", function()
+			local Parent = class()
 
-            local Child = Parent:extend()
+			function Parent:method()
+				return true
+			end
 
-            function Child:method()
-                return Parent.method(self)
-            end
+			local Child = Parent:extend()
 
-            expect(function()
-                local result = Child.new():method()
+			function Child:method()
+				return Parent.method(self)
+			end
 
-                expect(result).to.equal(true)
-            end).never.to.throw()
-        end)
+			expect(function()
+				local result = Child.new():method()
 
-        it("should call ancestor method", function()
-            local Ancestor = class()
+				expect(result).to.equal(true)
+			end).never.to.throw()
+		end)
 
-            function Ancestor:method()
-                return true
-            end
+		it("should call ancestor method", function()
+			local Ancestor = class()
 
-            local Parent = Ancestor:extend()
+			function Ancestor:method()
+				return true
+			end
 
-            function Parent:method()
-                return true
-            end
+			local Parent = Ancestor:extend()
 
-            local Child = Parent:extend()
+			function Parent:method()
+				return true
+			end
 
-            function Child:method()
-                return Ancestor.method(self)
-            end
+			local Child = Parent:extend()
 
-            expect(function()
-                local result = Child.new():method()
+			function Child:method()
+				return Ancestor.method(self)
+			end
 
-                expect(result).to.equal(true)
-            end).never.to.throw()
-        end)
+			expect(function()
+				local result = Child.new():method()
 
-        it("shouldn't affect class", function()
-            local Example = class()
+				expect(result).to.equal(true)
+			end).never.to.throw()
+		end)
 
-            function Example:construct()
-                self.constructed = true
-            end
+		it("shouldn't affect class", function()
+			local Example = class()
 
-            Example.new()
+			function Example:construct()
+				self.constructed = true
+			end
 
-            expect(Example.constructed).never.to.equal(true)
-        end)
+			Example.new()
 
-        it("shouldn't affect parent class (constructor)", function()
-            local Parent = class()
+			expect(Example.constructed).never.to.equal(true)
+		end)
 
-            function Parent:construct()
-                self.constructed = true
-            end
+		it("shouldn't affect parent class (constructor)", function()
+			local Parent = class()
 
-            local Child = Parent:extend()
+			function Parent:construct()
+				self.constructed = true
+			end
 
-            function Child:construct()
-                Parent.construct(self)
-            end
+			local Child = Parent:extend()
 
-            Child.new()
+			function Child:construct()
+				Parent.construct(self)
+			end
 
-            expect(Parent.constructed).never.to.equal(true)
-        end)
+			Child.new()
 
-        it("shouldn't affect parent class (method)", function()
-            local Parent = class()
+			expect(Parent.constructed).never.to.equal(true)
+		end)
 
-            function Parent:method()
-                self.called = true
-            end
+		it("shouldn't affect parent class (method)", function()
+			local Parent = class()
 
-            local Child = Parent:extend()
+			function Parent:method()
+				self.called = true
+			end
 
-            function Child:method()
-                Parent.method(self)
-            end
+			local Child = Parent:extend()
 
-            Child.new():method()
+			function Child:method()
+				Parent.method(self)
+			end
 
-            expect(Parent.called).never.to.equal(true)
-        end)
-    end)
+			Child.new():method()
+
+			expect(Parent.called).never.to.equal(true)
+		end)
+
+		it("should have a type", function()
+			local Example = class("Example")
+
+			expect(Example.__type).to.equal("Example")
+		end)
+
+		it("should have a type when extended", function()
+			local Parent = class("Parent")
+
+			expect(Parent:extend().__type).to.equal("Parent")
+		end)
+
+		it("should have a type when extended with specifier", function()
+			local Parent = class("Parent")
+
+			expect(Parent:extend("Child").__type).to.equal("Child")
+		end)
+	end)
 end

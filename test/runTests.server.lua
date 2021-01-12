@@ -1,8 +1,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local TestService = game:GetService("TestService")
 
-local TestEZ = require(TestService.TestEZ)
+local TestEZ = require(ReplicatedStorage.TestEZ)
 
 TestEZ.TestBootstrap:run({
-    ReplicatedStorage.class,
+	ReplicatedStorage.class,
 })

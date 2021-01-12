@@ -5,9 +5,10 @@ function BaseClass:construct()
 
 end
 
-function BaseClass:extend()
+function BaseClass:extend(typeSpecifier)
 	local Class = setmetatable({}, { __index = self })
 	Class.__index = Class
+	Class.__type = typeSpecifier
 
 	Class.new = function(...)
 		local object = setmetatable({}, Class)
@@ -20,8 +21,8 @@ function BaseClass:extend()
 	return Class
 end
 
-local function class()
-	return BaseClass:extend()
+local function class(typeSpecifier)
+	return BaseClass:extend(typeSpecifier)
 end
 
 return class
